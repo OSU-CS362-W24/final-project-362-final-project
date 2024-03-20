@@ -25,11 +25,41 @@ test(`Adds additional x,y input fields`, async function(){
     initDomFromFiles(`${__dirname}/line.html`, `${__dirname}/line.js`);
 	const user = userEvent.setup();
     const addValButton = domTesting.getByText(document, `+`);
-    let inputFieldArr = domTesting.getAllByLabelText(document, "X");
+    let inputFieldArrX = domTesting.getAllByLabelText(document, "X");
+    let inputFieldArrY = domTesting.getAllByLabelText(document, "Y");
 
-    // Act & Assert
-    expect(inputFieldArr.length).toBe(1);
+    // Assert initial input field count
+    expect(inputFieldArrX.length).toBe(1);
+    expect(inputFieldArrY.length).toBe(1);
+
+    // Act
     await user.click(addValButton);
-    inputFieldArr = domTesting.getAllByLabelText(document, "X");
-    expect(inputFieldArr.length).toBe(2);
+    inputFieldArrX = domTesting.getAllByLabelText(document, "X");
+    inputFieldArrY = domTesting.getAllByLabelText(document, "Y");
+
+    // Assert updated input field count
+    expect(inputFieldArrX.length).toBe(2);
+    expect(inputFieldArrY.length).toBe(2);
+})
+test(`Adding additional x,y input fields does not impact data`, async function(){
+    // Arrange
+    initDomFromFiles(`${__dirname}/line.html`, `${__dirname}/line.js`);
+	const user = userEvent.setup();
+    const addValButton = domTesting.getByText(document, `+`);
+    let inputFieldX = domTesting.getByLabelText(document, "X");
+    let inputFieldY = domTesting.getByLabelText(document, "Y");
+
+    // Act
+    await user.type(inputFieldX, "1");
+    await user.type(inputFieldY, "2");
+    await user.click(addValButton);
+    await user.click(addValButton);
+    await user.click(addValButton);
+    
+    // Assert
+    expect(inputFieldX).toHaveValue(1);
+    expect(inputFieldY).toHaveValue(2);
+})
+test(`Display alert for missing `, async function(){
+    
 })

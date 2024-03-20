@@ -4,7 +4,8 @@
   "description": "CS 362 Final Project",
   "scripts": {
     "build": "webpack",
-    "start": "webpack serve --open"
+    "start": "webpack serve --open",
+    "int-test": "jest"
   },
   "devDependencies": {
     "@testing-library/dom": "^9.3.4",

@@ -110,7 +110,6 @@ test(`Clearing chart data clears all input fields`, async function(){
     let inputFieldX = domTesting.getByLabelText(document, "X");
     let inputFieldY = domTesting.getByLabelText(document, "Y");
 
-
     // Act
     await user.type(chartTitle, "US Population");
     await user.type(labelX, "Year");
@@ -118,8 +117,6 @@ test(`Clearing chart data clears all input fields`, async function(){
     await user.type(inputFieldX, "2023");
     await user.type(inputFieldY, "335888625");
     await user.click(clearChartButton);
-
-    
 
     // Assert
     chartTitle = domTesting.getByLabelText(document, "Chart title");
@@ -158,16 +155,16 @@ test(`Clearing chart data deletes chart`, async function(){
     // Assert
     expect(domTesting.queryByRole(document, 'img')).toBe(null);
 });
-test(`Clearing chart data clears all but one input field`, async function(){
-    // 
+test(`Clearing chart data deletes all but one x,y input field`, async function(){
     // Arrange
     initDomFromFiles(`${__dirname}/line.html`, `${__dirname}/line.js`);
 	const user = userEvent.setup();
     const addValButton = domTesting.getByText(document, `+`);
     const clearChartButton = domTesting.getByText(document, "Clear chart data");
     
-    
     // Act
+    await user.click(addValButton);
+    await user.click(addValButton);
     await user.click(addValButton);
     await user.click(clearChartButton);
 

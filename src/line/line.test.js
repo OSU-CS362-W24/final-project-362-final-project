@@ -236,11 +236,9 @@ test(`Data is correctly sent ot chart generation function`, async function(){
     expect(spy).toHaveBeenCalledTimes(1);
     const type = spy.mock.calls[0][0];
     expect(type).toBe("line");
-
     const dataPoint = spy.mock.calls[0][1][0];
     expect(dataPoint["x"]).toBe("2023");
     expect(dataPoint["y"]).toBe("335888625");
-
     const xLabel = spy.mock.calls[0][2];
     expect(xLabel).toBe("Year");
     const yLabel = spy.mock.calls[0][3];

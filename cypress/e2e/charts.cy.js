@@ -105,5 +105,18 @@ it("opens saved chart and reloads data", () => {
   cy.url().should("equal", "http://localhost:8080/");
   cy.get("#gallery").should("contain", "test line");
 
-  cy.get("#gallery").find("chart.img").click();
+  cy.get("#gallery")
+    .findByRole("link", { name: "test line test line" })
+    .click();
+
+  cy.findByRole("textbox", { name: "Chart title" }).should(
+    "have.value",
+    "test line",
+  );
+  cy.findByRole("textbox", { name: "X label" }).should("have.value", "test x");
+  cy.findByRole("textbox", { name: "Y label" }).should("have.value", "test y");
+  cy.findAllByRole("spinbutton", { name: "X" }).eq(0).should("have.value", "4");
+  cy.findAllByRole("spinbutton", { name: "Y" })
+    .eq(0)
+    .should("have.value", "10");
 });
